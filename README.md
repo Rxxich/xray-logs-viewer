@@ -25,7 +25,7 @@
 Для установки или обновления используйте команду в одну строку:
 
 ```bash
-curl -sSL [https://raw.githubusercontent.com/Rxxich/xray-logs-viewer/main/install.sh](https://raw.githubusercontent.com/Rxxich/xray-logs-viewer/main/install.sh) | sudo bash
+curl -sSL https://raw.githubusercontent.com/Rxxich/xray-logs-viewer/main/install.sh | sudo bash
 ```
 🛠 Использование
 После завершения установки просто введите команду в терминале:

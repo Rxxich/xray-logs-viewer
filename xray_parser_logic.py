@@ -57,6 +57,7 @@ def get_region_and_asn(ip, city_reader, asn_reader):
     except: return "Unknown Location"
 
 def parse_log_entry(log, filter_ip_resource, city_reader):
+    # ВОЗВРАЩЕНО ОРИГИНАЛЬНОЕ РЕГУЛЯРНОЕ ВЫРАЖЕНИЕ
     pattern = re.compile(
         r".*?(\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}(?:\.\d+)?) "
         r"from (?P<ip>(?:[0-9a-fA-F:]+|\d+\.\d+\.\d+\.\d+|@|unix:@))?(?::\d+)? accepted (?:(tcp|udp):)?(?P<resource>[\w\.-]+(?:\.\w+)*|\d+\.\d+\.\d+\.\d+):\d+ "
@@ -67,6 +68,7 @@ def parse_log_entry(log, filter_ip_resource, city_reader):
         ip = match.group("ip") or "Unknown IP"
         email = match.group("email") or "Unknown Email"
         resource = match.group("resource")
+        
         ipv4_pattern = re.compile(r"^(?:\d{1,3}\.){3}\d{1,3}$")
         if ipv4_pattern.match(resource):
             if filter_ip_resource: return None
@@ -105,7 +107,7 @@ def main():
             if p: parsed_data.append(p)
 
         if not parsed_data:
-            print(color_text("Данные не найдены или формат лога не поддерживается.", "33"))
+            print(color_text("Данные в логе найдены, но они не соответствуют формату Xray или пусты.", "33"))
             return
 
         if args.online:

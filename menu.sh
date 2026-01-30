@@ -30,9 +30,12 @@ while true; do
         2) python3 $PY_LOGS --path "$LOG_PATH" --ip; echo -e "\n${C}Нажмите Enter...${NC}"; read ;;
         3) python3 $PY_LOGS --path "$LOG_PATH" --summary; echo -e "\n${C}Нажмите Enter...${NC}"; read ;;
         4) python3 $PY_LOGS --path "$LOG_PATH" --online; echo -e "\n${C}Нажмите Enter...${NC}"; read ;;
-        5) (trap 'exit 0' SIGINT; tail -f "$LOG_PATH") ;;
+        5) 
+            echo -e "${C}Мониторинг запущен. Ctrl+C для возврата...${NC}\n"
+            (trap 'exit 0' SIGINT; tail -f "$LOG_PATH")
+            ;;
         6) 
-            echo -n -e "Введите запрос для поиска: "
+            echo -n -e "Что ищем? (домен или IP): "
             read term
             python3 $PY_LOGS --path "$LOG_PATH" --search "$term"
             echo -e "\n${C}Нажмите Enter...${NC}"; read ;;

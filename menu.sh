@@ -19,6 +19,7 @@ while true; do
     echo -e "${Y}4)${G} Только активные сейчас (Online)${NC}"
     echo -e "${Y}5)${G} Просмотр логов в реальном времени${NC}"
     echo -e "${Y}6)${G} Поиск по адресу или домену (Search)${NC}"
+    echo -e "${Y}7)${R} Удалить xray-logs-viewer из системы${NC}"
     echo -e "${R}0)${G} Выход${NC}"
     echo -e "${G}==========================================${NC}"
     echo -n -e "Выберите вариант: ${Y}"
@@ -39,6 +40,22 @@ while true; do
             read term
             python3 $PY_LOGS --path "$LOG_PATH" --search "$term"
             echo -e "\n${C}Нажмите Enter...${NC}"; read ;;
+        7)
+            echo -n -e "${R}Вы уверены, что хотите полностью удалить скрипт и базы данных? (y/n): ${NC}"
+            read confirm < /dev/tty
+            if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
+                echo -e "${YELLOW}Удаление компонентов...${NC}"
+                rm -f "/usr/local/bin/xray_logs"
+                rm -f "/usr/local/bin/xray_parser_logic.py"
+                rm -f "/tmp/GeoLite2-City.mmdb"
+                rm -f "/tmp/GeoLite2-ASN.mmdb"
+                echo -e "${GREEN}xray-logs-viewer и все связанные данные успешно удалены.${NC}"
+                exit 0
+            else
+                echo -e "${CYAN}Удаление отменено.${NC}"
+                sleep 1
+            fi
+            ;;
         0) exit 0 ;;
         *) echo -e "${R}Ошибка.${NC}"; sleep 1 ;;
     esac

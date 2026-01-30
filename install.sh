@@ -18,9 +18,8 @@ fi
 echo -e "${CYAN}--- Настройка пути к логам ---${NC}"
 DEFAULT_PATH="/var/log/remnanode/access.log"
 echo -e "Укажите путь к логам xray (access.log)."
-echo -e "По умолчанию: ${YELLOW}$DEFAULT_PATH${NC}"
-
-read -p "Введите путь или Enter для ${YELLOW}$DEFAULT_PATH${NC} : " USER_PATH < /dev/tty
+echo -n -e "Введите путь или Enter для ${YELLOW}$DEFAULT_PATH${NC} : "
+read USER_PATH < /dev/tty
 FINAL_LOG_PATH=${USER_PATH:-$DEFAULT_PATH}
 
 if [ ! -f "$FINAL_LOG_PATH" ]; then

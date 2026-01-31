@@ -21,9 +21,11 @@ def download_geoip_db():
             urllib.request.urlretrieve(url, path)
 
 def extract_email_number(email):
-    if email == "Unknown Email": return float('inf')
-    match = re.match(r"(\d+)\..*", email)
-    return int(match.group(1)) if match else email
+    if email == "Unknown Email": return [float('inf'), email]
+    numbers = re.findall(r"(\d+)", email)
+    if numbers:
+        return [int(numbers[0]), email]
+    return [float('inf'), email]
 
 def highlight_resource(resource):
     highlight_domains = {
@@ -152,3 +154,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
